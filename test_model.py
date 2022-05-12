@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 import pytest
 
-from model import Product
+from model import Batch, OrderLine
 
 today = date.today()
 tomorrow = today + timedelta(days=1)
@@ -10,9 +10,12 @@ later = tomorrow + timedelta(days=10)
 
 def test_allocating_to_a_batch_reduces_the_available_quantity():
     sku = '12345'
-    product = Product(name='Test Product', sku=sku)
-    assert True
-
+    batch_qty = 10
+    order_line_qty = 9
+    batch = Batch(reference_id=1, sku=sku, qty=batch_qty)
+    order_line = OrderLine(sku=sku, qty=order_line_qty)
+    batch.allocate_order_line(order_line)
+    assert(batch.qty == batch_qty - order_line_qty)
 
 def test_can_allocate_if_available_greater_than_required():
     pytest.fail("todo")

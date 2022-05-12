@@ -1,11 +1,5 @@
 from dataclasses import dataclass
-from multiprocessing import _QueueType
 from typing import List
-
-@dataclass
-class Product:
-  sku: str
-  name: str
 
 @dataclass
 class OrderLine:
